@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="calculator.css" rel="stylesheet">
+    <!-- Import link for mathjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js" type="text/javascript"></script>
+
+    <!-- Links for the fonts used. Sourced from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Container for the calculator -->
+    <div id="container">
+        <!-- Display for the calculator -->
+        <h1 id="display"></h1>
+        <!-- Button section of the calculator -->
+        <div id="buttonContainer">
+            <button id="openParenthesis" onclick="addOP()" class="btn">(</button>
+            <button id="closedParenthesis" onclick="addCP()" class="btn">)</button>
+            <button id="modulus" onclick="addModulus()" class="btn">%</button>
+            <button id="clear" onclick="clearDisplay()" class="btn">clear</button>
+            <button id="one" onclick="addOne()" class="btn">1</button>
+            <button id="two" onclick="addTwo()" class="btn">2</button>
+            <button id="three" onclick="addThree()" class="btn">3</button>
+            <button id="divide" onclick="addDivide()" class="btn">/</button>
+            <button id="four" onclick="addFour()" class="btn">4</button>
+            <button id="five" onclick="addFive()" class="btn">5</button>
+            <button id="six" onclick="addSix()" class="btn">6</button>
+            <button id="multiply" onclick="addMultiply()" class="btn">*</button>
+            <button id="seven" onclick="addSeven()" class="btn">7</button>
+            <button id="eight" onclick="addEight()" class="btn">8</button>
+            <button id="nine" onclick="addNine()" class="btn">9</button>
+            <button id="minus" onclick="addMinus()" class="btn">-</button>
+            <button id="decimal" onclick="addDecimal()" class="btn">.</button>
+            <button id="zero" onclick="addZero()" class="btn">0</button>
+            <button id="equal" onclick="calculate()" class="btn">=</button>
+            <button id="plus" onclick="addAdd()" class="btn">+</button>
+        </div>
+    </div>
+
+
+    <!-- Log container for the calculator -->
+    <div id="logContainer">
+        <!-- Title for the log container -->
+        <h1 id="logTitle">Log</h1>
+        <!-- Log for the calculator.
+        Everytime the user completes an expression, the expression and it's result will be logged in the paragraph tag below. Cleared only when the user refreshes the page
+        -->
+        <p id="log">
+        </p>
+    </div>
+
+
+    <script type="text/javascript">
+        var currentNum = "";
+        var displayNode = document.querySelector("#display");
+        var log = [];
+        var logNode = document.querySelector("#log");
+
+        /*
+        Updating the log. The log contains the previous expressions, that the user completed, and their results.
+        */
+        function updateLog()
+        {
+            logNode.innerText = log.join("\n\n\n\n");
+        }
+
+        /*
+        Populating the expression onto the display
+        */
+        function updateDisplay()
+        {
+            displayNode.innerText = currentNum;
+        }
+
+        /*
+        Clearing the display of the current working expression
+        */
+        function clearDisplay()
+        {
+            currentNum = "";
+            updateDisplay();
+        }
+
+        /* 
+        Adding parenthesis to the expression
+        */
+        function addOP()
+        {
+            currentNum += "("
+            updateDisplay();
+        }
+
+        function addCP() 
+        {
+            currentNum += ")";
+            updateDisplay();
+        }
+
+        /* 
+        Adding numbers to the expression
+        */
+        function addZero()
+        {
+            currentNum += "0";
+            updateDisplay();
+        }
+
+        function addOne()
+        {
+            currentNum += "1";
+            updateDisplay();
+        }
+
+        function addTwo()
+        {
+            currentNum += "2";
+            updateDisplay();
+        }
+
+        function addThree()
+        {
+            currentNum += "3";
+            updateDisplay();
+        }
+
+        function addFour()
+        {
+            currentNum += "4";
+            updateDisplay();
+        }
+
+        function addFive()
+        {
+            currentNum += "5";
+            updateDisplay();
+        }
+
+        function addSix()
+        {
+            currentNum += "6";
+            updateDisplay();
+        }
+
+        function addSeven()
+        {
+            currentNum += "7";
+            updateDisplay();
+        }
+
+        function addEight()
+        {
+            currentNum += "8";
+            updateDisplay();
+        }
+
+        function addNine()
+        {
+            currentNum += "9";
+            updateDisplay();
+        }
+
+        /* 
+        Adding decimal point to the expression
+        */
+
+        function addDecimal()
+        {
+            currentNum += ".";
+            updateDisplay();
+        }
+
+        /* 
+        Adding operators to the expression
+        */
+        function addDivide()
+        {
+            currentNum += "/"
+            updateDisplay();
+        }
+
+        function addMultiply()
+        {
+            currentNum += "*"
+            updateDisplay();
+        }
+
+        function addMinus()
+        {
+            currentNum += "-"        
+            updateDisplay();
+        }
+
+        function addAdd()
+        {
+            currentNum += "+"
+            updateDisplay();
+        }
+
+        function addModulus()
+        {
+            currentNum += "%";
+            updateDisplay();
+        }
+
+
+        // use math.js
+        /*
+        Getting the result for the expression, and displaying the results
+        */
+        function calculate()
+        {
+            log.push(`${currentNum}\n=\n${math.eval(currentNum)}`);
+            currentNum = math.eval(currentNum);
+            updateDisplay();
+            updateLog();
+        }
+    </script>
+</body>
+</html>
